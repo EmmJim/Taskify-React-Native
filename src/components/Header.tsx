@@ -10,11 +10,11 @@ const Header = () => {
     
     return (
         <View style={styles.topMenu}>
-            <><TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)}>
+            <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)}>
                 <Ionicons name="menu" size={24} color="#2E3A59" />
             </TouchableOpacity><TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                     <FontAwesome name="user-circle" size={24} color="#2E3A59" />
-                </TouchableOpacity></>
+                </TouchableOpacity>
         </View>
     )
 }

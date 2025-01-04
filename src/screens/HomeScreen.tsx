@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Header from '../components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors } from '../../assets/styles/globalStyles';
+import {LinearGradient} from 'expo-linear-gradient';
 
 enum TaskStatuses {
     InProgress = 1,
@@ -34,8 +35,8 @@ const HomeScreen = () => {
     const completedTasks = tasks.filter((task) => task.status == 2 );
 
     return (
-        <View style={styles.container}>
-            <View style={styles.centerContent}>
+        <SafeAreaView style={styles.container}>
+            <ScrollView style={styles.centerContent} showsVerticalScrollIndicator={false}>
 
                 <Header />
 
@@ -86,14 +87,21 @@ const HomeScreen = () => {
                     data={tasks}
                     renderItem={({item}) => (
                     <View style={styles.cardContainer}>
-                        <View style={styles.card}>
-                            <View style={{flexDirection: 'row', gap: 15}}>
-                                <View style={{height: 30, width: 30, backgroundColor: 'red'}}></View>
+                        <LinearGradient 
+                            colors={[globalColors.secondary, globalColors.secondaryPurple]} // Colores del gradiente (puedes cambiarlos)
+                            style={styles.card} // Estilo de la tarjeta
+                            start={{ x: 0, y: 0 }} // Dirección del gradiente
+                            end={{ x: 1, y: 1 }}   // Dirección del gradiente
+                        >
+                            <View style={{flexDirection: 'row', gap: 15, alignItems: 'center'}}>
+                                <Image style={{height: 30, width: 30}} source={{
+                                    uri: 'https://cdn-icons-png.freepik.com/256/10969/10969233.png?semt=ais_hybrid'
+                                }}></Image>
                                 <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>{item.projectName}</Text>
                             </View>
                             <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>{item.name}</Text>
                             <Text style={{color: 'white'}}>October 20, 2020</Text>
-                        </View>
+                        </LinearGradient>
                     </View>
                     )}
                 />
@@ -137,9 +145,11 @@ const HomeScreen = () => {
                 /> 
             )}
 
-            </View>
+            <Text style={styles.subheader}>Progress</Text>
+            
+            </ScrollView>
             <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -148,10 +158,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: globalColors.primary,
         alignItems: 'center',
-        justifyContent: 'center',
     },
     centerContent: {
-        width: '85%'
+        width: '90%'
     },
     greetingContainer: {
         alignSelf: 'flex-start',
@@ -160,6 +169,11 @@ const styles = StyleSheet.create({
     },  
     greeting: {
         fontSize: 38,
+        fontWeight: 'bold',
+        color: globalColors.secondary
+    },
+    subheader: {
+        fontSize: 23,
         fontWeight: 'bold',
         color: globalColors.secondary
     },

@@ -5,6 +5,7 @@ export const globalColors = {
   secondary: '#2E3A59',
   lightGray: '#636363',
   purple: '#3A49F9',
+  secondaryPurple: '#3926e0',
   white: '#fff',
   gray: '#E5EAFC'
 };
