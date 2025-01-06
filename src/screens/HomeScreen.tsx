@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FlatList, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Header from '../components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors } from '../../assets/styles/globalStyles';
 import {LinearGradient} from 'expo-linear-gradient';
-
-enum TaskStatuses {
-    InProgress = 1,
-    Completed = 2,
-    allTasks = 3
-}
+import Card from '../components/Card';
+import { TaskItem, TaskStatuses } from '../types/types';
+import TaskSelectionButton from '../components/TaskSelectionButton';
 
 const HomeScreen = () => {
-    const [tasks, setTasks] = useState<any[]>([]); // Estado para las tareas
+    const [tasks, setTasks] = useState<TaskItem[]>([]); // Estado para las tareas
     const [selectedTasks, setSelectedTasks] = useState<TaskStatuses>(TaskStatuses.allTasks);
 
     // Recuperar tareas desde AsyncStorage
@@ -31,124 +28,98 @@ const HomeScreen = () => {
         loadTasks();
     }, []);
 
-    const inProgressTasks = tasks.filter((task) => task.status == 1 );
-    const completedTasks = tasks.filter((task) => task.status == 2 );
+    // Memorizar las tareas filtradas para evitar recalcular en cada render
+    const filteredTasks = useMemo(() => {
+        if (selectedTasks === TaskStatuses.allTasks) {
+            return tasks;
+        } else if (selectedTasks === TaskStatuses.InProgress) {
+            return tasks.filter(task => task.status === 1);
+        } else if (selectedTasks === TaskStatuses.Completed) {
+            return tasks.filter(task => task.status === 2);
+        }
+        return [];
+    }, [selectedTasks, tasks]);
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.centerContent} showsVerticalScrollIndicator={false}>
-
                 <Header />
-
                 {/* Greeting */}
-
                 <View style={styles.greetingContainer}>
                     <Text style={styles.greeting}>Hello Emmanuel!</Text>
                     <Text style={styles.subtitle}>Have a nice day.</Text>
                 </View>
-
                 {/* Botones */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity 
-                        style={{
-                        ...styles.button,
-                        ...(selectedTasks === TaskStatuses.allTasks ? styles.buttonActive : {}),
-                        }} 
-                        onPress={() => setSelectedTasks(TaskStatuses.allTasks)}
-                    >
-                    <Text style={selectedTasks === TaskStatuses.allTasks ? styles.buttonText : {}}>My Tasks</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={{
-                        ...styles.button,
-                        ...(selectedTasks === TaskStatuses.InProgress ? styles.buttonActive : {}),
-                        }} 
-                        onPress={() => setSelectedTasks(TaskStatuses.InProgress)}
-                    >
-                    <Text style={selectedTasks === TaskStatuses.InProgress ? styles.buttonText : {}}>In-progress</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={{
-                        ...styles.button,
-                        ...(selectedTasks === TaskStatuses.Completed ? styles.buttonActive : {}),
-                        }} 
-                        onPress={() => setSelectedTasks(TaskStatuses.Completed)}
-                    >
-                    <Text style={selectedTasks === TaskStatuses.Completed ? styles.buttonText : {}}>Completed</Text>
-                    </TouchableOpacity>
+                    <TaskSelectionButton title="My Tasks" statusTask={TaskStatuses.allTasks} selectedTasks={selectedTasks} onPress={setSelectedTasks}/>
+                    <TaskSelectionButton title="In-progress" statusTask={TaskStatuses.InProgress} selectedTasks={selectedTasks} onPress={setSelectedTasks}/>
+                    <TaskSelectionButton title="Completed" statusTask={TaskStatuses.Completed} selectedTasks={selectedTasks} onPress={setSelectedTasks}/>
                 </View>
 
                 {/* Cards */}
-                {selectedTasks == TaskStatuses.allTasks ? (
-                    <FlatList 
+                <FlatList 
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    keyExtractor={(data) => data.name}
-                    data={tasks}
-                    renderItem={({item}) => (
-                    <View style={styles.cardContainer}>
-                        <LinearGradient 
-                            colors={[globalColors.secondary, globalColors.secondaryPurple]} // Colores del gradiente (puedes cambiarlos)
-                            style={styles.card} // Estilo de la tarjeta
-                            start={{ x: 0, y: 0 }} // Dirección del gradiente
-                            end={{ x: 1, y: 1 }}   // Dirección del gradiente
-                        >
-                            <View style={{flexDirection: 'row', gap: 15, alignItems: 'center'}}>
-                                <Image style={{height: 30, width: 30}} source={{
-                                    uri: 'https://cdn-icons-png.freepik.com/256/10969/10969233.png?semt=ais_hybrid'
-                                }}></Image>
-                                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>{item.projectName}</Text>
+                    keyExtractor={(item) => item.name + Date.now().toString()} // Usar id como clave única
+                    data={filteredTasks}
+                    renderItem={({ item }) => <Card item={item} />}
+                />
+                
+                {/* Section Progress */}
+                <Text style={styles.subheader}>Upcoming deadlines</Text>
+                <View style={{marginVertical: 20, gap: 10}}>
+                    <View 
+                        style={{
+                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowOpacity: 0.8,
+                            elevation: 6,
+                            shadowRadius: 15 ,
+                            shadowOffset : { width: 1, height: 13}
+                        }}>
+                        <View style={{flexDirection: 'row', gap: 30}}>
+                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
+                            <View>
+                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Back-end development</Text>
+                                <Text style={{fontSize: 12}}>October 11</Text>
                             </View>
-                            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>{item.name}</Text>
-                            <Text style={{color: 'white'}}>October 20, 2020</Text>
-                        </LinearGradient>
-                    </View>
-                    )}
-                />
-                ) : selectedTasks == TaskStatuses.InProgress ? (
-                    <FlatList 
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(data) => data.name}
-                    data={inProgressTasks}
-                    renderItem={({item}) => (
-                    <View style={styles.cardContainer}>
-                        <View style={styles.card}>
-                        <View style={{flexDirection: 'row', gap: 15}}>
-                            <View style={{height: 30, width: 30, backgroundColor: 'red'}}></View>
-                            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>{item.projectName}</Text>
-                        </View>
-                        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>{item.name}</Text>
-                        <Text style={{color: 'white'}}>October 20, 2020</Text>
                         </View>
                     </View>
-                    )}
-                />
-                ) : (
-                    <FlatList 
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(data) => data.name}
-                    data={completedTasks}
-                    renderItem={({item}) => (
-                    <View style={styles.cardContainer}>
-                        <View style={styles.card}>
-                        <View style={{flexDirection: 'row', gap: 15}}>
-                            <View style={{height: 30, width: 30, backgroundColor: 'red'}}></View>
-                            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>{item.projectName}</Text>
-                        </View>
-                        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 25}}>{item.name}</Text>
-                        <Text style={{color: 'white'}}>October 20, 2020</Text>
+                    <View 
+                        style={{
+                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowOpacity: 0.8,
+                            elevation: 6,
+                            shadowRadius: 15 ,
+                            shadowOffset : { width: 1, height: 13}
+                        }}>
+                        <View style={{flexDirection: 'row', gap: 30}}>
+                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
+                            <View>
+                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Devops development</Text>
+                                <Text style={{fontSize: 12}}>October 22</Text>
+                            </View>
                         </View>
                     </View>
-                )}
-                /> 
-            )}
+                    <View 
+                        style={{
+                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
+                            shadowOpacity: 0.8,
+                            elevation: 6,
+                            shadowRadius: 15 ,
+                            shadowOffset : { width: 1, height: 13}
+                        }}>
+                        <View style={{flexDirection: 'row', gap: 30}}>
+                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
+                            <View>
+                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Front-end development</Text>
+                                <Text style={{fontSize: 12}}>November 1</Text>
+                            </View>
+                        </View>
+                    </View>
 
-            <Text style={styles.subheader}>Progress</Text>
-            
+                </View>
             </ScrollView>
-            <StatusBar style="auto" />
+            <StatusBar barStyle="dark-content" />
         </SafeAreaView>
     )
 }

@@ -11,7 +11,6 @@ export const SideMenuNavigator = () => {
             screenOptions={{
                 headerShown: false,
                 drawerType: 'front',
-
                 drawerActiveBackgroundColor: '#2E3A59',
                 drawerActiveTintColor: 'white',
                 drawerInactiveTintColor: '#2E3A59',

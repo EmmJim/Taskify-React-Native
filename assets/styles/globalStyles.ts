@@ -11,5 +11,23 @@ export const globalColors = {
 };
 
 export const globalStyles = StyleSheet.create({
-
+  textWhite: {color: globalColors.white},
+  cardContainer: {
+    marginVertical: 30,
+    gap: 10
+  },
+  card: {
+      backgroundColor: globalColors.purple,
+      borderRadius: 20,
+      padding: 15,
+      marginRight: 15,
+      width: 240,
+      height: 240,
+      shadowColor: 'rgba(0, 0, 0, 0.1)',
+      shadowOpacity: 0.8,
+      elevation: 6,
+      shadowRadius: 15 ,
+      shadowOffset : { width: 1, height: 13},
+      justifyContent: 'space-around'
+  }
 });
