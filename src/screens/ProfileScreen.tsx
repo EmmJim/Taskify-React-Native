@@ -7,7 +7,7 @@ const ProfileScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.centerContent}>
-                <Header />
+                <Header iconColor={globalColors.secondary}/>
                 {/* Profile Picture */}
                 <View style={{alignItems: 'center', marginVertical: 30}}>
                     <Image 
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     centerContent: {
-        width: '85%'
+        width: '90%'
     },
 })
 

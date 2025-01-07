@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AddTask from '../screens/AddTask';
 import { globalColors } from '../../assets/styles/globalStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -31,7 +32,7 @@ export const TabNavigator = () => {
         >
             <Tab.Screen name="Home" options={{tabBarIcon: ({focused}) => <Ionicons name="home-sharp" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={HomeScreen} />
             <Tab.Screen name="Task List" options={{tabBarIcon: ({focused}) => <FontAwesome5 name="clipboard-list" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={ProfileScreen} />
-            <Tab.Screen name="Add Task" options={{tabBarIcon: ({focused}) => <Entypo name="add-to-list" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={ProfileScreen} />
+            <Tab.Screen name="Add Task" options={{tabBarIcon: ({focused}) => <Entypo name="add-to-list" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={AddTask} />
         </Tab.Navigator>
     );
 }

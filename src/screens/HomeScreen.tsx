@@ -7,6 +7,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Card from '../components/Card';
 import { TaskItem, TaskStatuses } from '../types/types';
 import TaskSelectionButton from '../components/TaskSelectionButton';
+import ListCardItem from '../components/ListCardItem';
 
 const HomeScreen = () => {
     const [tasks, setTasks] = useState<TaskItem[]>([]); // Estado para las tareas
@@ -43,7 +44,7 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.centerContent} showsVerticalScrollIndicator={false}>
-                <Header />
+                <Header iconColor={globalColors.secondary} />
                 {/* Greeting */}
                 <View style={styles.greetingContainer}>
                     <Text style={styles.greeting}>Hello Emmanuel!</Text>
@@ -67,56 +68,10 @@ const HomeScreen = () => {
                 
                 {/* Section Progress */}
                 <Text style={styles.subheader}>Upcoming deadlines</Text>
-                <View style={{marginVertical: 20, gap: 10}}>
-                    <View 
-                        style={{
-                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
-                            shadowOpacity: 0.8,
-                            elevation: 6,
-                            shadowRadius: 15 ,
-                            shadowOffset : { width: 1, height: 13}
-                        }}>
-                        <View style={{flexDirection: 'row', gap: 30}}>
-                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
-                            <View>
-                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Back-end development</Text>
-                                <Text style={{fontSize: 12}}>October 11</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View 
-                        style={{
-                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
-                            shadowOpacity: 0.8,
-                            elevation: 6,
-                            shadowRadius: 15 ,
-                            shadowOffset : { width: 1, height: 13}
-                        }}>
-                        <View style={{flexDirection: 'row', gap: 30}}>
-                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
-                            <View>
-                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Devops development</Text>
-                                <Text style={{fontSize: 12}}>October 22</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View 
-                        style={{
-                            backgroundColor: 'white', padding: 20, borderRadius: 20, shadowColor: 'rgba(0, 0, 0, 0.1)',
-                            shadowOpacity: 0.8,
-                            elevation: 6,
-                            shadowRadius: 15 ,
-                            shadowOffset : { width: 1, height: 13}
-                        }}>
-                        <View style={{flexDirection: 'row', gap: 30}}>
-                            <Image style={{width: 30, height: 30}} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
-                            <View>
-                                <Text style={{fontWeight: 'bold', fontSize: 18}}>Front-end development</Text>
-                                <Text style={{fontSize: 12}}>November 1</Text>
-                            </View>
-                        </View>
-                    </View>
-
+                <View style={styles.listCardsContainer}>
+                    <ListCardItem title="Back-end development" date="October 11"/>
+                    <ListCardItem title="Devops development" date="October 22"/>
+                    <ListCardItem title="Front-end development" date="November 1"/>
                 </View>
             </ScrollView>
             <StatusBar barStyle="dark-content" />
@@ -190,7 +145,8 @@ const styles = StyleSheet.create({
         shadowRadius: 15 ,
         shadowOffset : { width: 1, height: 13},
         justifyContent: 'space-around'
-    }
+    },
+    listCardsContainer: {marginVertical: 20, gap: 10}
 })
 
 export default HomeScreen
