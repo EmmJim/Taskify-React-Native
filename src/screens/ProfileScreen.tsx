@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, SafeAreaView} from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, SafeAreaView, StatusBar, Platform} from 'react-native'
 import Header from '../components/Header'
 import { globalColors } from '../../assets/styles/globalStyles'
 
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#e0f0fd',
         alignItems: 'center',
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     },
     centerContent: {
         width: '90%'

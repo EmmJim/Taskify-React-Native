@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { FlatList, Image, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Platform, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Header from '../components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalColors } from '../../assets/styles/globalStyles';
@@ -74,7 +74,6 @@ const HomeScreen = () => {
                     <ListCardItem title="Front-end development" date="November 1"/>
                 </View>
             </ScrollView>
-            <StatusBar barStyle="dark-content" />
         </SafeAreaView>
     )
 }
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: globalColors.primary,
         alignItems: 'center',
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     },
     centerContent: {
         width: '90%'

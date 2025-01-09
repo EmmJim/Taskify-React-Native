@@ -12,22 +12,24 @@ const Tab = createBottomTabNavigator();
 export const TabNavigator = () => {
     return (
         <Tab.Navigator
-            screenOptions={{
+            screenOptions={({route}) => ({
                 headerShown: false,
                 tabBarLabelStyle: {
                     marginBottom: 5,
                 },
-                tabBarInactiveBackgroundColor: globalColors.primary,
-                tabBarActiveBackgroundColor: globalColors.primary,
+                tabBarInactiveBackgroundColor: route.name === 'Add Task' ? globalColors.white : globalColors.primary,
+                tabBarActiveBackgroundColor: route.name === 'Add Task' ? globalColors.white : globalColors.primary,
                 tabBarInactiveTintColor: globalColors.secondary,
                 tabBarActiveTintColor: globalColors.secondaryPurple,
+
                 tabBarStyle: {
-                    backgroundColor: globalColors.primary,
+                    backgroundColor: route.name === 'Add Task' ? globalColors.white : globalColors.primary,
                     elevation: 0,
                     borderColor: "transparent",
                     shadowColor: "transparent",
-                }
-            }}
+                },
+                statusBarStyle: route.name === 'Add Task' ? 'light-content' : 'dark-content'
+            })}
 
         >
             <Tab.Screen name="Home" options={{tabBarIcon: ({focused}) => <Ionicons name="home-sharp" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={HomeScreen} />
