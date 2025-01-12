@@ -7,7 +7,8 @@ export const globalColors = {
   purple: '#3A49F9',
   secondaryPurple: '#3926e0',
   white: '#fff',
-  gray: '#E5EAFC'
+  gray: '#E5EAFC',
+  darkGray: '#666666'
 };
 
 export const globalStyles = StyleSheet.create({

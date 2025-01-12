@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({item}) => {
                     <Text style={styles.projectName}>{item.projectName}</Text>
                 </View>
                 <Text style={styles.taskName}>{item.name}</Text>
-                <Text style={globalStyles.textWhite}>October 20, 2020</Text>
+                <Text style={globalStyles.textWhite}>{item.date ? new Date(item.date).toDateString() : null}</Text>
             </LinearGradient>
         </View>
     )

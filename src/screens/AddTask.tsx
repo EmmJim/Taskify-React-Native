@@ -3,19 +3,96 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, SafeAreaVie
 import Header from '../components/Header'
 import { globalColors } from '../../assets/styles/globalStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Snackbar from '../components/SnackBar';
 
 const AddTask = () => {
-
+    const [form, setForm] = useState({
+        name: '',
+        projectName: '',
+        description: '',
+        status: 1,
+        date: new Date()
+    })
     const [date, setDate] = useState<Date>(new Date());
-    const [show, setShow] = useState<Boolean>(false);
+    const [show, setShow] = useState<boolean>(false);
     const [selectedDate, setSelectedDate] = useState<Date>(date);
-    const [taskStatus, setTaskStatus] = useState<Number>(1);
+    const [taskStatus, setTaskStatus] = useState<number>(1);
+
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+    const showSnackbar = () => {
+        setSnackbarVisible(true);
+    };
 
     const onChange = (event, selectedDate) => {
         setShow(false); // Ocultar el picker cuando se hace una selección
         const currentDate = selectedDate || date;
         setDate(currentDate);
-        setSelectedDate(currentDate); // Actualizar la fecha seleccionada
+        setSelectedDate(currentDate); // Actualizar la fecha seleccionadas
+        setForm({
+            ...form,
+            date: currentDate
+        })
+    };
+
+    const onChangeTextField = (event, field) => {
+        console.log(event, field);
+        setForm({
+            ...form,
+            [field]: event
+        })
+    }
+
+    const onSubmit = () => {
+        setForm({
+            ...form,
+            status: taskStatus
+        })
+        console.log(form);
+        saveTasksToStorage(form)
+        showSnackbar()
+        setForm({
+            name: '',
+            projectName: '',
+            description: '',
+            status: 1,
+            date: new Date()
+        })
+        setTaskStatus(1);
+        setSelectedDate(new Date());
+    }
+
+    const saveTasksToStorage = async (newTask: any) => {
+        try {
+            // Obtener las tareas existentes desde AsyncStorage
+            const existingTasks = await AsyncStorage.getItem('tasks');
+            
+            // Verificar si existingTasks es un JSON válido
+            let tasksArray: any[] = [];
+            if (existingTasks) {
+                try {
+                    tasksArray = JSON.parse(existingTasks);
+                    
+                    // Validar que tasksArray sea un arreglo
+                    if (!Array.isArray(tasksArray)) {
+                        throw new Error('El contenido de AsyncStorage no es un array válido.');
+                    }
+                } catch (error) {
+                    console.error('Error al analizar JSON existente:', error);
+                    tasksArray = [];
+                }
+            }
+    
+            // Añadir la nueva tarea
+            tasksArray.push(newTask);
+    
+            // Guardar el array actualizado en AsyncStorage
+            await AsyncStorage.setItem('tasks', JSON.stringify(tasksArray));
+            console.log('Task added to AsyncStorage:', newTask);
+        } catch (error) {
+            console.error('Error saving tasks to AsyncStorage:', error);
+        }
     };
     
     return (
@@ -35,7 +112,11 @@ const AddTask = () => {
                             <View style={{width: '90%', paddingVertical: 30, paddingHorizontal: 10}}>
                                 <View style={{marginVertical: 10}}>
                                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>Name</Text>
-                                    <TextInput style={{borderBottomColor: 'white', borderBottomWidth: 0.2, padding: 10, color: globalColors.white}}/>
+                                    <TextInput 
+                                        style={{borderBottomColor: 'white', borderBottomWidth: 0.2, padding: 10, color: globalColors.white}} 
+                                        onChangeText={(event) => onChangeTextField(event, 'name')} 
+                                        value={form.name}
+                                    />
                                 </View>
                                 <View style={{marginVertical: 10}}>
                                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>Date</Text>
@@ -64,7 +145,11 @@ const AddTask = () => {
                             <View style={{width: '90%', paddingVertical: 30, paddingHorizontal: 10}}>
                                 <View style={{marginVertical: 10}}>
                                     <Text style={{color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16}}>Project Name</Text>
-                                    <TextInput style={{borderBottomColor: globalColors.secondary, borderBottomWidth: 0.2, padding: 10, color: globalColors.secondary}}/>
+                                    <TextInput 
+                                        style={{borderBottomColor: globalColors.secondary, borderBottomWidth: 0.2, padding: 10, color: globalColors.secondary}} 
+                                        onChangeText={(event) => onChangeTextField(event, 'projectName')}
+                                        value={form.projectName}
+                                    />
                                 </View>
                                 <View style={{marginVertical: 10}}>
                                     <Text style={{color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16}}>Description</Text>
@@ -75,6 +160,8 @@ const AddTask = () => {
                                         returnKeyType="done"
                                         blurOnSubmit={true}
                                         onSubmitEditing={Keyboard.dismiss}
+                                        onChangeText={(event) => onChangeTextField(event, 'description')}
+                                        value={form.description}
                                     />
                                 </View>
                                 <View style={{marginVertical: 10}}>
@@ -101,9 +188,17 @@ const AddTask = () => {
                                     </View>
                                 </View>
                             </View>
+                            <TouchableOpacity onPress={onSubmit} style={{backgroundColor: globalColors.secondary, width: '90%', height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>Enviar</Text>
+                            </TouchableOpacity>
                         </View>
                         
                     </View>
+                    <Snackbar
+                        message="Task added succesfully!"
+                        visible={snackbarVisible}
+                        onDismiss={() => setSnackbarVisible(false)}
+                    />
                 </SafeAreaView>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>

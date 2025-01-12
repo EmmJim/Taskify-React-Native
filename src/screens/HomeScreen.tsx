@@ -8,10 +8,14 @@ import Card from '../components/Card';
 import { TaskItem, TaskStatuses } from '../types/types';
 import TaskSelectionButton from '../components/TaskSelectionButton';
 import ListCardItem from '../components/ListCardItem';
+import { useIsFocused } from '@react-navigation/native';
+
 
 const HomeScreen = () => {
     const [tasks, setTasks] = useState<TaskItem[]>([]); // Estado para las tareas
     const [selectedTasks, setSelectedTasks] = useState<TaskStatuses>(TaskStatuses.allTasks);
+    const isFocused = useIsFocused();
+    console.log(tasks)
 
     // Recuperar tareas desde AsyncStorage
     useEffect(() => {
@@ -26,8 +30,10 @@ const HomeScreen = () => {
             }
         };
 
-        loadTasks();
-    }, []);
+        if (isFocused) {
+            loadTasks(); // Recarga las tareas solo cuando la pantalla está activa
+        }
+    }, [isFocused]);
 
     // Memorizar las tareas filtradas para evitar recalcular en cada render
     const filteredTasks = useMemo(() => {
@@ -58,13 +64,21 @@ const HomeScreen = () => {
                 </View>
 
                 {/* Cards */}
-                <FlatList 
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => item.name + Date.now().toString()} // Usar id como clave única
-                    data={filteredTasks}
-                    renderItem={({ item }) => <Card item={item} />}
-                />
+                
+                {filteredTasks.length ? (
+                    <FlatList 
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item) => item.name + Date.now().toString()} // Usar id como clave única
+                        data={filteredTasks}
+                        renderItem={({ item }) => <Card item={item} />}
+                    />
+                ) : (
+                    <View style={{marginVertical: 50, alignItems: 'center'}}>
+                        <Text style={{fontWeight: 'bold', color: globalColors.darkGray}}>You have no tasks, add one to start</Text>
+                    </View>
+                )}
+                
                 
                 {/* Section Progress */}
                 <Text style={styles.subheader}>Upcoming deadlines</Text>

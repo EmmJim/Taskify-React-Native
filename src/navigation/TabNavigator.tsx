@@ -33,8 +33,8 @@ export const TabNavigator = () => {
 
         >
             <Tab.Screen name="Home" options={{tabBarIcon: ({focused}) => <Ionicons name="home-sharp" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={HomeScreen} />
-            <Tab.Screen name="Task List" options={{tabBarIcon: ({focused}) => <FontAwesome5 name="clipboard-list" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={ProfileScreen} />
             <Tab.Screen name="Add Task" options={{tabBarIcon: ({focused}) => <Entypo name="add-to-list" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={AddTask} />
+            <Tab.Screen name="Profile" options={{tabBarIcon: ({focused}) => <FontAwesome5 name="user" size={24} color={focused ?  globalColors.secondaryPurple : globalColors.secondary} />}} component={ProfileScreen} />
         </Tab.Navigator>
     );
 }

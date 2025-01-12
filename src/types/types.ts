@@ -1,7 +1,9 @@
 export type TaskItem = {
     name: String, 
     projectName: String, 
-    status: Number
+    status: Number,
+    date: Date,
+    description: String
 }
 
 export enum TaskStatuses {
