@@ -74,8 +74,8 @@ const HomeScreen = () => {
                         renderItem={({ item }) => <Card item={item} />}
                     />
                 ) : (
-                    <View style={{marginVertical: 50, alignItems: 'center'}}>
-                        <Text style={{fontWeight: 'bold', color: globalColors.darkGray}}>You have no tasks, add one to start</Text>
+                    <View style={styles.messageNoTasksContainer}>
+                        <Text style={styles.messageNoTasks}>You have no tasks, add one to start</Text>
                     </View>
                 )}
                 
@@ -111,6 +111,14 @@ const styles = StyleSheet.create({
         fontSize: 38,
         fontWeight: 'bold',
         color: globalColors.secondary
+    },
+    messageNoTasksContainer: {
+        marginVertical: 50, 
+        alignItems: 'center'
+    },
+    messageNoTasks: {
+        fontWeight: 'bold', 
+        color: globalColors.darkGray
     },
     subheader: {
         fontSize: 23,

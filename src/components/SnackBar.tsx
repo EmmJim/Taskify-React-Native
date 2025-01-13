@@ -36,9 +36,9 @@ const Snackbar: React.FC<SnackbarProps> = ({ message, visible, onDismiss }) => {
 
   return (
     <Animated.View style={[styles.snackbar, { opacity: fadeAnim }]}>
-      <View style={{flexDirection: 'row', gap: 10}}>
+      <View style={styles.textContainer}>
         <Text style={styles.snackbarText}>{message}</Text>
-        <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/800px-Sign-check-icon.png'}} style={{width: 20, height: 20}}/>
+        <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/800px-Sign-check-icon.png'}} style={styles.image}/>
       </View>
       <TouchableOpacity onPress={onDismiss} style={styles.dismissButton}>
         <Text style={styles.dismissText}>X</Text>
@@ -79,6 +79,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  textContainer: {
+    flexDirection: 'row', gap: 10
+  },
+  image: {
+    width: 20, 
+    height: 20
+  }
 });
 
 export default Snackbar;

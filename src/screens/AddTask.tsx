@@ -98,32 +98,32 @@ const AddTask = () => {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAvoidingView
-                style={{flex: 1}}
+                style={styles.keyboardView}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
                 <SafeAreaView style={styles.container}>
-                    <View style={{width: '90%'}}>
+                    <View style={styles.headerContainer}>
                         <Header iconColor={globalColors.white}/>
                     </View>
                     <View style={styles.centerContent}>
-                        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 24, textAlign: 'center'}}>Create a Task</Text>
+                        <Text style={styles.title}>Create a Task</Text>
                         
-                        <View style={{backgroundColor: globalColors.secondary, height: '40%', justifyContent: 'center', alignItems: 'center'}}>
-                            <View style={{width: '90%', paddingVertical: 30, paddingHorizontal: 10}}>
-                                <View style={{marginVertical: 10}}>
-                                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16}}>Name</Text>
+                        <View style={styles.firstContainer}>
+                            <View style={styles.firstContainerSpacing}>
+                                <View style={styles.inputContainer}>
+                                    <Text style={styles.inputLabel}>Name</Text>
                                     <TextInput 
-                                        style={{borderBottomColor: 'white', borderBottomWidth: 0.2, padding: 10, color: globalColors.white}} 
+                                        style={styles.inputText} 
                                         onChangeText={(event) => onChangeTextField(event, 'name')} 
                                         value={form.name}
                                     />
                                 </View>
-                                <View style={{marginVertical: 10}}>
-                                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>Date</Text>
-                                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                                        <Text style={{color: 'white', fontSize: 13}}>{selectedDate.toDateString()}</Text>
-                                        <TouchableOpacity onPress={() => setShow(true)} style={{backgroundColor: globalColors.white, padding: 8, borderRadius: 15, alignItems: 'center'}} >
-                                            <Text style={{color: globalColors.secondary}}>Pick a Date</Text>
+                                <View style={styles.inputContainer}>
+                                    <Text style={{...styles.inputLabel, marginBottom: 10}}>Date</Text>
+                                    <View style={styles.dateContainer}>
+                                        <Text style={styles.inputDateText}>{selectedDate.toDateString()}</Text>
+                                        <TouchableOpacity onPress={() => setShow(true)} style={styles.dateButton} >
+                                            <Text style={styles.dateText}>Pick a Date</Text>
                                             {show && (
                                                 <DateTimePicker
                                                     value={date}
@@ -141,20 +141,20 @@ const AddTask = () => {
                             </View>
                         </View>
                         
-                        <View style={{backgroundColor: globalColors.white, height: '60%', borderTopEndRadius: 50, borderTopStartRadius: 50, alignItems: 'center'}}>
-                            <View style={{width: '90%', paddingVertical: 30, paddingHorizontal: 10}}>
-                                <View style={{marginVertical: 10}}>
-                                    <Text style={{color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16}}>Project Name</Text>
+                        <View style={styles.secondContainer}>
+                            <View style={styles.secondContainerSpacing}>
+                                <View style={styles.inputContainer}>
+                                    <Text style={styles.secondInputLabel}>Project Name</Text>
                                     <TextInput 
-                                        style={{borderBottomColor: globalColors.secondary, borderBottomWidth: 0.2, padding: 10, color: globalColors.secondary}} 
+                                        style={styles.secondInputText} 
                                         onChangeText={(event) => onChangeTextField(event, 'projectName')}
                                         value={form.projectName}
                                     />
                                 </View>
-                                <View style={{marginVertical: 10}}>
-                                    <Text style={{color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16}}>Description</Text>
+                                <View style={styles.inputContainer}>
+                                    <Text style={styles.secondInputLabel}>Description</Text>
                                     <TextInput 
-                                        style={{borderBottomColor: globalColors.secondary, borderBottomWidth: 0.2, padding: 10, color: globalColors.secondary}} 
+                                        style={styles.secondInputText} 
                                         multiline 
                                         numberOfLines={3}
                                         returnKeyType="done"
@@ -164,32 +164,32 @@ const AddTask = () => {
                                         value={form.description}
                                     />
                                 </View>
-                                <View style={{marginVertical: 10}}>
-                                    <Text style={{color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16, marginBottom: 20}}>Status</Text>
-                                    <View style={{flexDirection: 'row', gap: 10}}>
+                                <View style={styles.inputContainer}>
+                                    <Text style={{...styles.secondInputLabel, marginBottom: 20}}>Status</Text>
+                                    <View style={styles.statusButtonsContainer}>
                                         <TouchableOpacity 
-                                            style={{padding: 15, backgroundColor: taskStatus === 1 ? globalColors.purple : globalColors.secondary, borderRadius: 30}}
+                                            style={{...styles.statusButton, backgroundColor: taskStatus === 1 ? globalColors.purple : globalColors.secondary}}
                                             onPress={() => setTaskStatus(1)}
                                         >
-                                            <Text style={{color: globalColors.white, fontWeight: 'bold', fontSize: 12}}>Not Started</Text>
+                                            <Text style={styles.statusButtonText}>Not Started</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity 
-                                            style={{padding: 15, backgroundColor: taskStatus === 2 ? globalColors.purple : globalColors.secondary, borderRadius: 30}}
+                                            style={{...styles.statusButton, backgroundColor: taskStatus === 2 ? globalColors.purple : globalColors.secondary}}
                                             onPress={() => setTaskStatus(2)}
                                         >
-                                            <Text style={{color: globalColors.white, fontWeight: 'bold', fontSize: 12}}>In-progress</Text>
+                                            <Text style={styles.statusButtonText}>In-progress</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity 
-                                            style={{padding: 15, backgroundColor: taskStatus === 3 ? globalColors.purple : globalColors.secondary, borderRadius: 30}}
+                                            style={{...styles.statusButton, backgroundColor: taskStatus === 3 ? globalColors.purple : globalColors.secondary}}
                                             onPress={() => setTaskStatus(3)}
                                         >
-                                            <Text style={{color: globalColors.white, fontWeight: 'bold', fontSize: 12}}>Completed</Text>
+                                            <Text style={styles.statusButtonText}>Completed</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={onSubmit} style={{backgroundColor: globalColors.secondary, width: '90%', height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center'}}>
-                                <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>Enviar</Text>
+                            <TouchableOpacity onPress={onSubmit} style={styles.submitButton}>
+                                <Text style={styles.submitButtonText}>Enviar</Text>
                             </TouchableOpacity>
                         </View>
                         
@@ -206,6 +206,7 @@ const AddTask = () => {
 }
 
 const styles = StyleSheet.create({
+    keyboardView: {flex: 1},
     container: {
         flex: 1,
         backgroundColor: globalColors.secondary,
@@ -215,6 +216,26 @@ const styles = StyleSheet.create({
     centerContent: {
         width: '100%'
     },
+    headerContainer: {width: '90%'},
+    title: {color: 'white', fontWeight: 'bold', fontSize: 24, textAlign: 'center'},
+    firstContainer: {backgroundColor: globalColors.secondary, height: '40%', justifyContent: 'center', alignItems: 'center'},
+    firstContainerSpacing: {width: '90%', paddingVertical: 30, paddingHorizontal: 10},
+    inputContainer: {marginVertical: 10},
+    inputLabel: {color: 'white', fontWeight: 'bold', fontSize: 16},
+    inputText: {borderBottomColor: 'white', borderBottomWidth: 0.2, padding: 10, color: globalColors.white},
+    dateContainer: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    inputDateText: {color: 'white', fontSize: 13},
+    dateButton: {backgroundColor: globalColors.white, padding: 8, borderRadius: 15, alignItems: 'center'},
+    dateText: {color: globalColors.secondary},
+    secondContainer: {backgroundColor: globalColors.white, height: '60%', borderTopEndRadius: 50, borderTopStartRadius: 50, alignItems: 'center'},
+    secondContainerSpacing: {width: '90%', paddingVertical: 30, paddingHorizontal: 10},
+    secondInputLabel: {color: globalColors.lightGray, fontWeight: 'bold', fontSize: 16},
+    secondInputText: {borderBottomColor: globalColors.secondary, borderBottomWidth: 0.2, padding: 10, color: globalColors.secondary},
+    statusButtonsContainer: {flexDirection: 'row', gap: 10},
+    statusButton: {padding: 15, borderRadius: 30},
+    statusButtonText: {color: globalColors.white, fontWeight: 'bold', fontSize: 12},
+    submitButton: {backgroundColor: globalColors.secondary, width: '90%', height: 40, borderRadius: 20, justifyContent: 'center', alignItems: 'center'},
+    submitButtonText: {color: 'white', fontWeight: 'bold', fontSize: 18},
 })
 
 export default AddTask
