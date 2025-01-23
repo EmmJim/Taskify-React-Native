@@ -91,7 +91,11 @@ const styles = StyleSheet.create({
         color: globalColors.lightGray
     },
     formContainer: {
-        marginVertical: 20
+        marginVertical: 20,
+        backgroundColor: globalColors.white,
+        padding: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
     },
     fieldContainer: {
         marginVertical: 10
@@ -107,7 +111,7 @@ const styles = StyleSheet.create({
     },
     logoutButton: {
         borderWidth: 1, 
-        borderColor: globalColors.purple, 
+        backgroundColor: globalColors.secondary,
         borderRadius: 10, 
         padding: 10, 
         marginTop: 40
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
     logoutButtonText: {
         textAlign: 'center', 
         fontWeight: 'bold', 
-        color: globalColors.purple
+        color: globalColors.white
     }
 })
 
