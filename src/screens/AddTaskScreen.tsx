@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Snackbar from '../components/SnackBar';
 
-const AddTask = () => {
+const AddTaskScreen = () => {
     const [form, setForm] = useState({
         name: '',
         projectName: '',
@@ -238,4 +238,4 @@ const styles = StyleSheet.create({
     submitButtonText: {color: 'white', fontWeight: 'bold', fontSize: 18},
 })
 
-export default AddTask
+export default AddTaskScreen

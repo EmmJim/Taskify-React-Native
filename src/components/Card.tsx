@@ -1,16 +1,17 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { globalColors, globalStyles } from '../../assets/styles/globalStyles';
 import { TaskItem } from '../types/types'
 
 interface CardProps {
-    item: TaskItem
+    item: TaskItem,
+    onPress: () => {}
 }
 
-const Card: React.FC<CardProps> = ({item}) => {
+const Card: React.FC<CardProps> = ({item, onPress}) => {
     return (
-        <View style={globalStyles.cardContainer}>
+        <TouchableOpacity onPress={onPress} style={globalStyles.cardContainer}>
             <LinearGradient 
                 colors={[globalColors.secondary, globalColors.secondaryPurple]} // Colores del gradiente (puedes cambiarlos)
                 style={globalStyles.card} // Estilo de la tarjeta
@@ -26,7 +27,7 @@ const Card: React.FC<CardProps> = ({item}) => {
                 <Text style={styles.taskName}>{item.name}</Text>
                 <Text style={globalStyles.textWhite}>{item.date ? new Date(item.date).toDateString() : null}</Text>
             </LinearGradient>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -8,10 +8,13 @@ import Card from '../components/Card';
 import { TaskItem, TaskStatuses } from '../types/types';
 import TaskSelectionButton from '../components/TaskSelectionButton';
 import ListCardItem from '../components/ListCardItem';
-import { useIsFocused } from '@react-navigation/native';
+import { NavigationProp, useIsFocused } from '@react-navigation/native';
 
+interface HomeScreenProps {
+    navigation: NavigationProp,
+}
 
-const HomeScreen = () => {
+const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
     const [tasks, setTasks] = useState<TaskItem[]>([]); // Estado para las tareas
     const [selectedTasks, setSelectedTasks] = useState<TaskStatuses>(TaskStatuses.allTasks);
     const isFocused = useIsFocused();
@@ -71,7 +74,7 @@ const HomeScreen = () => {
                         showsHorizontalScrollIndicator={false}
                         keyExtractor={(item) => item.name + Date.now().toString()} // Usar id como clave única
                         data={filteredTasks}
-                        renderItem={({ item }) => <Card item={item} />}
+                        renderItem={({ item }) => <Card item={item} onPress={() => navigation.navigate('TaskVisualizer', item)}/>}
                     />
                 ) : (
                     <View style={styles.messageNoTasksContainer}>

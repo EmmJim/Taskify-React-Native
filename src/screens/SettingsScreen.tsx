@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, SafeAreaVie
 import Header from '../components/Header'
 import { globalColors } from '../../assets/styles/globalStyles'
 
-const SettingsScreen = () => {
+const SettingsScreen = ({navigation}) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     
@@ -26,27 +26,30 @@ const SettingsScreen = () => {
                 <View style={styles.formContainer}>
                     <View style={styles.fieldContainer}>
                         <Text style={styles.fieldLabel}>Account Settings</Text>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity
+                            style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}
+                            onPress={() => navigation.navigate('Profile')}                            
+                        >
                             <Text>Edit Profile</Text>
                             <Text>{'>'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}>
                             <Text>Change Password</Text>
                             <Text>{'>'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}>
                             <Text>About Us</Text>
                             <Text>{'>'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}>
                             <Text>Privacy Policy</Text>
                             <Text>{'>'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}>
                             <Text>Language</Text>
                             <Text>{'>'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 8, paddingRight: 8}}>
+                        <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.2, borderBottomColor: globalColors.lightGray, paddingVertical: 15, paddingRight: 8}}>
                             <Text>Notifications</Text>
                             <Switch
                                 trackColor={{false: '#767577', true: '#0649cf'}}
@@ -100,8 +103,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         backgroundColor: globalColors.white,
         padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderRadius: 20
     },
     fieldContainer: {
         marginVertical: 10

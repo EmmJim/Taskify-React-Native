@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     fieldLabel: {
-        fontWeight: 'bold', 
+        fontWeight: 500, 
         marginBottom: 10
     },
     input: {

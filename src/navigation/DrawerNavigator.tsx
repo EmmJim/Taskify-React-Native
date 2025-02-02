@@ -2,7 +2,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { TabNavigator } from './TabNavigator';
-import AddTask from '../screens/AddTask';
+import AddTaskScreen from '../screens/AddTaskScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,8 +24,8 @@ export const SideMenuNavigator = () => {
         >
             <Drawer.Screen name="Home" component={TabNavigator}/>
             <Drawer.Screen name="Profile" component={ProfileScreen} />
-            <Drawer.Screen name="Add/Edit task" component={AddTask} />
-            <Drawer.Screen name="Settings" component={ProfileScreen} />
+            <Drawer.Screen name="Add task" component={AddTaskScreen} />
+            <Drawer.Screen name="Settings" component={SettingsScreen} />
         </Drawer.Navigator>
     );
 }
