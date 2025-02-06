@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Snackbar from '../components/SnackBar';
 
-const AddTaskScreen = () => {
+const AddTaskScreen = ({navigation}) => {
     const [form, setForm] = useState({
         name: '',
         projectName: '',
@@ -61,6 +61,10 @@ const AddTaskScreen = () => {
         })
         setTaskStatus(1);
         setSelectedDate(new Date());
+
+        setTimeout(() => {
+            navigation.navigate('Home');
+        }, 2000);
     }
 
     const saveTasksToStorage = async (newTask: any) => {

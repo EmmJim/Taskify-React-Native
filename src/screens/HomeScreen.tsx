@@ -86,9 +86,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
                 {/* Section Progress */}
                 <Text style={styles.subheader}>Upcoming deadlines</Text>
                 <View style={styles.listCardsContainer}>
-                    <ListCardItem title="Back-end development" date="October 11"/>
-                    <ListCardItem title="Devops development" date="October 22"/>
-                    <ListCardItem title="Front-end development" date="November 1"/>
+                    <ListCardItem title="Back-end development" date="October 11" onPress={() => navigation.navigate('Login')}/>
+                    <ListCardItem title="Devops development" date="October 22" onPress={() => {}}/>
+                    <ListCardItem title="Front-end development" date="November 1" onPress={() => {}}/>
                 </View>
             </ScrollView>
         </SafeAreaView>

@@ -1,15 +1,18 @@
 import React from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 interface ListCardItemProps {
     title: String,
-    date: String
+    date: String,
+    onPress: () => void
 }
 
-const ListCardItem: React.FC<ListCardItemProps> = ({title, date}) => {
+const ListCardItem: React.FC<ListCardItemProps> = ({title, date, onPress}) => {
     return (
-        <View 
-            style={styles.card}>
+        <TouchableOpacity 
+            style={styles.card}
+            onPress={onPress}
+        >
             <View style={styles.cardView}>
                 <Image style={styles.cardImage} source={{uri: 'https://cdn-icons-png.flaticon.com/512/8003/8003352.png'}}/>
                 <View>
@@ -17,7 +20,7 @@ const ListCardItem: React.FC<ListCardItemProps> = ({title, date}) => {
                     <Text style={styles.cardSubtitle}>{date}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
