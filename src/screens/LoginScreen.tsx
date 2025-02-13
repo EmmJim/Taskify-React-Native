@@ -20,10 +20,16 @@ const LoginScreen = ({navigation, route}) => {
                 </View>
 
                 <View style={{marginTop: 50, gap: 30, width: '70%'}}>
-                    <TouchableOpacity style={{backgroundColor: globalColors.secondaryPurple, padding: 10, borderRadius: 20, alignItems: 'center'}}>
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('SignIn')}
+                        style={{backgroundColor: globalColors.secondaryPurple, padding: 10, borderRadius: 20, alignItems: 'center'}}
+                    >
                         <Text style={{color: globalColors.white, fontWeight: 'bold', fontSize: 18}}>Sign In</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{backgroundColor: globalColors.white, padding: 10, borderRadius: 20, alignItems: 'center'}}>
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('SignUp')}
+                        style={{backgroundColor: globalColors.white, padding: 10, borderRadius: 20, alignItems: 'center'}}
+                    >
                         <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
