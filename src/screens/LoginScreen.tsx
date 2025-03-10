@@ -12,25 +12,25 @@ const LoginScreen = ({navigation, route}) => {
                 contentContainerStyle={styles.scrollContent}
             >
                 <View style={styles.textContainer}>
-                    <Image source={require('../../assets/LogoTaskify.png')} style={{height: 200, width: 500}}/>
+                    <Image source={require('../../assets/LogoTaskify.png')} style={styles.taskifyLogo}/>
                 </View>
 
                 <View style={{marginTop: 50}}>
-                    <Text style={{fontSize: 30, color: globalColors.white}}>Welcome</Text>
+                    <Text style={styles.welcomeText}>Welcome</Text>
                 </View>
 
                 <View style={{marginTop: 50, gap: 30, width: '70%'}}>
                     <TouchableOpacity 
                         onPress={() => navigation.navigate('SignIn')}
-                        style={{backgroundColor: globalColors.secondaryPurple, padding: 10, borderRadius: 20, alignItems: 'center'}}
+                        style={styles.signInButton}
                     >
-                        <Text style={{color: globalColors.white, fontWeight: 'bold', fontSize: 18}}>Sign In</Text>
+                        <Text style={styles.signInText}>Sign In</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                         onPress={() => navigation.navigate('SignUp')}
-                        style={{backgroundColor: globalColors.white, padding: 10, borderRadius: 20, alignItems: 'center'}}
+                        style={styles.signUpButton}
                     >
-                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Sign Up</Text>
+                        <Text style={styles.signUpText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -58,6 +58,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    taskifyLogo: {
+        height: 200, 
+        width: 500
+    },
+    welcomeText: {
+        fontSize: 30, 
+        color: globalColors.white
+    },
+    signInButton: {
+        backgroundColor: globalColors.secondaryPurple, 
+        padding: 10, 
+        borderRadius: 20, 
+        alignItems: 'center'
+    },
+    signInText: {
+        color: globalColors.white, 
+        fontWeight: 'bold', fontSize: 18
+    },
+    signUpButton: {
+        backgroundColor: globalColors.white, 
+        padding: 10, 
+        borderRadius: 20, 
+        alignItems: 'center'
+    },
+    signUpText: {
+        color: globalColors.secondary, 
+        fontWeight: 'bold', 
+        fontSize: 18
+    }
 });
 
 export default LoginScreen;

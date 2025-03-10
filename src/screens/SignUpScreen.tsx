@@ -17,55 +17,55 @@ const SignUpScreen = ({navigation, route}) => {
                         contentContainerStyle={styles.scrollContent}
                     >
                         <View style={styles.textContainer}>
-                            <Image source={require('../../assets/LogoTaskify.png')} style={{height: 200, width: 400}}/>
+                            <Image source={require('../../assets/LogoTaskify.png')} style={styles.taskifyLogo}/>
                         </View>
 
 
-                        <View style={{backgroundColor: 'white', marginTop: 10, padding: 30, width: '100%', borderRadius: 30, flex: 1, justifyContent: 'space-between'}}>
-                                <View style={{gap: 30}}>
+                        <View style={styles.card}>
+                                <View style={styles.cardGap}>
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Full Name</Text>
+                                        <Text style={styles.formLabel}>Full Name</Text>
                                         <TextInput 
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Email</Text>
+                                        <Text style={styles.formLabel}>Email</Text>
                                         <TextInput 
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Password</Text>
+                                        <Text style={styles.formLabel}>Password</Text>
                                         <TextInput
                                             secureTextEntry
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Confirm Password</Text>
+                                        <Text style={styles.formLabel}>Confirm Password</Text>
                                         <TextInput
                                             secureTextEntry
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
                                     
 
-                                    <TouchableOpacity style={{marginTop: 10, backgroundColor: globalColors.secondary, padding: 10, borderRadius: 20}}>
-                                        <Text style={{fontWeight: 'bold', color: globalColors.white, fontSize: 18, textAlign: 'center'}}>Sign Up</Text>
+                                    <TouchableOpacity style={styles.signUpButton}>
+                                        <Text style={styles.signUpText}>Sign Up</Text>
                                     </TouchableOpacity>
                                 </View>
 
-                                <View style={{marginTop: 30, alignItems: 'flex-end'}}>
+                                <View style={styles.signInContainer}>
                                     <Text>Already Sign Up?</Text>
                                     <TouchableOpacity
                                         onPress={() => navigation.navigate('SignIn')}
                                     >
-                                        <Text style={{fontWeight: 'bold'}}>Sign In</Text>
+                                        <Text style={styles.signInText}>Sign In</Text>
                                     </TouchableOpacity>
                                 </View>
                         </View>
@@ -97,6 +97,50 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    taskifyLogo: {
+        height: 200, 
+        width: 400
+    },
+    card: {
+        backgroundColor: 'white', 
+        marginTop: 10, 
+        padding: 30, 
+        width: '100%', 
+        borderRadius: 30, 
+        flex: 1, 
+        justifyContent: 'space-between'
+    },
+    cardGap: {
+        gap: 30
+    },
+    formLabel: {
+        color: globalColors.secondary, 
+        fontWeight: 'bold', 
+        fontSize: 18
+    },
+    formInput: {
+        padding: 10, 
+        borderBottomWidth: 0.3
+    },
+    signUpButton: {
+        marginTop: 10, 
+        backgroundColor: globalColors.secondary, 
+        padding: 10, 
+        borderRadius: 20
+    },
+    signUpText: {
+        fontWeight: 'bold', 
+        color: globalColors.white, 
+        fontSize: 18, 
+        textAlign: 'center'
+    },
+    signInContainer: {
+        marginTop: 30, 
+        alignItems: 'flex-end'
+    },
+    signInText: {
+        fontWeight: 'bold'
+    }
 });
 
 export default SignUpScreen;

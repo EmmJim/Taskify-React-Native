@@ -18,44 +18,44 @@ const SignInScreen = ({navigation, route}) => {
                         contentContainerStyle={styles.scrollContent}
                     >
                         <View style={styles.textContainer}>
-                            <Image source={require('../../assets/LogoTaskify.png')} style={{height: 200, width: 400}}/>
+                            <Image source={require('../../assets/LogoTaskify.png')} style={styles.taskifyLogo}/>
                         </View>
 
 
-                        <View style={{backgroundColor: 'white', marginTop: 10, padding: 30, width: '100%', borderRadius: 30, flex: 1, justifyContent: 'space-between'}}>
-                                <View style={{gap: 30}}>
+                        <View style={styles.card}>
+                                <View style={styles.cardGap}>
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Email</Text>
+                                        <Text style={styles.formLabel}>Email</Text>
                                         <TextInput 
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
                                     <View>
-                                        <Text style={{color: globalColors.secondary, fontWeight: 'bold', fontSize: 18}}>Password</Text>
+                                        <Text style={styles.formLabel}>Password</Text>
                                         <TextInput
                                             secureTextEntry
-                                            style={{padding: 10, borderBottomWidth: 0.3}}
+                                            style={styles.formInput}
                                         />
                                     </View>
 
-                                    <View style={{ marginTop: 10, alignItems: 'flex-end'}}>
+                                    <View style={styles.forgotPassContainer}>
                                         <TouchableOpacity>
                                             <Text>Forgot Password?</Text>
                                         </TouchableOpacity>
                                     </View>
 
-                                    <TouchableOpacity style={{backgroundColor: globalColors.secondary, padding: 10, borderRadius: 20}}>
-                                        <Text style={{fontWeight: 'bold', color: globalColors.white, fontSize: 18, textAlign: 'center'}}>Sign In</Text>
+                                    <TouchableOpacity style={styles.signInButton}>
+                                        <Text style={styles.signInText}>Sign In</Text>
                                     </TouchableOpacity>
                                 </View>
 
-                                <View style={{marginTop: 20}}>
+                                <View>
                                     <Text>Don't have an account?</Text>
                                     <TouchableOpacity
                                         onPress={() => navigation.navigate('SignUp')}
                                     >
-                                        <Text style={{fontWeight: 'bold'}}>Sign Up</Text>
+                                        <Text style={styles.signUpText}>Sign Up</Text>
                                     </TouchableOpacity>
                                 </View>
                         </View>
@@ -87,6 +87,49 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    taskifyLogo: {
+        height: 200, 
+        width: 400
+    },
+    card: {
+        backgroundColor: 'white', 
+        marginTop: 10, 
+        padding: 30, 
+        width: '100%', 
+        borderRadius: 30, 
+        flex: 1, 
+        justifyContent: 'space-between'
+    },
+    cardGap: {
+        gap: 30
+    },
+    formLabel: {
+        color: globalColors.secondary, 
+        fontWeight: 'bold', 
+        fontSize: 18
+    },
+    formInput: {
+        padding: 10, 
+        borderBottomWidth: 0.3
+    },
+    forgotPassContainer: {
+        marginTop: 10, 
+        alignItems: 'flex-end'
+    },
+    signInButton: {
+        backgroundColor: globalColors.secondary, 
+        padding: 10, 
+        borderRadius: 20
+    },
+    signInText: {
+        fontWeight: 'bold', 
+        color: globalColors.white, 
+        fontSize: 18, 
+        textAlign: 'center'
+    },
+    signUpText: {
+        fontWeight: 'bold'
+    }
 });
 
 export default SignInScreen;
