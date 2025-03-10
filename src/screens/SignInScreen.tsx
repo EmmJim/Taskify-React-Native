@@ -1,8 +1,16 @@
 import React from 'react'
 import { Text, View, StyleSheet, ScrollView, Platform, StatusBar, SafeAreaView, TouchableOpacity, Image, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import { globalColors } from '../../assets/styles/globalStyles';
+import useForm from '../hooks/useForm';
 
 const SignInScreen = ({navigation, route}) => {
+
+    const [formValues, handleOnTextChange] = useForm({
+        email: '',
+        password: ''
+    });
+
+    console.log(formValues);
 
     return (
 
@@ -27,6 +35,9 @@ const SignInScreen = ({navigation, route}) => {
                                     <View>
                                         <Text style={styles.formLabel}>Email</Text>
                                         <TextInput 
+                                            onChangeText={(value) => {
+                                                handleOnTextChange('email', value)
+                                            }}
                                             style={styles.formInput}
                                         />
                                     </View>
@@ -35,6 +46,9 @@ const SignInScreen = ({navigation, route}) => {
                                         <Text style={styles.formLabel}>Password</Text>
                                         <TextInput
                                             secureTextEntry
+                                            onChangeText={(value) => {
+                                                handleOnTextChange('password', value)
+                                            }}
                                             style={styles.formInput}
                                         />
                                     </View>
